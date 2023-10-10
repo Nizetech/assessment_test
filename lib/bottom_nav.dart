@@ -1,0 +1,89 @@
+import 'package:assessment_test/home_screen.dart';
+import 'package:assessment_test/theme/colors.dart';
+import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+
+class BottomNav extends StatefulWidget {
+  const BottomNav({super.key});
+
+  @override
+  State<BottomNav> createState() => _BottomNavState();
+}
+
+class _BottomNavState extends State<BottomNav> {
+  late PersistentTabController _controller;
+  late bool _hideNavBar;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = PersistentTabController();
+    _hideNavBar = false;
+  }
+
+  List<PersistentBottomNavBarItem> _navBarsItems() => [
+        PersistentBottomNavBarItem(
+          icon: const Icon(IconlyBold.home),
+          title: "Home",
+          activeColorPrimary: mainColor,
+          activeColorSecondary: Colors.white,
+          inactiveColorPrimary: Colors.grey,
+        ),
+        PersistentBottomNavBarItem(
+          icon: const Icon(Icons.mail),
+          title: "Chat",
+          activeColorPrimary: mainColor,
+          activeColorSecondary: Colors.white,
+          inactiveColorPrimary: Colors.grey,
+        ),
+        PersistentBottomNavBarItem(
+          icon: const Icon(IconlyBold.location),
+          title: "Location",
+          activeColorPrimary: mainColor,
+          activeColorSecondary: Colors.white,
+          inactiveColorPrimary: Colors.grey,
+        ),
+        PersistentBottomNavBarItem(
+          icon: const Icon(IconlyBold.profile),
+          title: "Profile",
+          activeColorPrimary: mainColor,
+          activeColorSecondary: Colors.white,
+          inactiveColorPrimary: Colors.grey,
+        ),
+      ];
+  List<Widget> buildScreens = [
+    HomeScreen(),
+    HomeScreen(),
+    HomeScreen(),
+    HomeScreen(),
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: PersistentTabView(
+        context,
+        controller: _controller,
+        screens: buildScreens,
+        items: _navBarsItems(),
+        resizeToAvoidBottomInset: true,
+        navBarHeight: MediaQuery.of(context).viewInsets.bottom > 0
+            ? 0.0
+            : kBottomNavigationBarHeight,
+        bottomScreenMargin: 0,
+        backgroundColor: Colors.white,
+        hideNavigationBar: _hideNavBar,
+        decoration: const NavBarDecoration(colorBehindNavBar: Colors.indigo),
+        itemAnimationProperties: const ItemAnimationProperties(
+          duration: Duration(milliseconds: 400),
+          curve: Curves.ease,
+        ),
+        screenTransitionAnimation: const ScreenTransitionAnimation(
+          animateTabTransition: true,
+        ),
+        navBarStyle:
+            NavBarStyle.style7, // Choose the nav bar style with this property
+      ),
+    );
+  }
+}
