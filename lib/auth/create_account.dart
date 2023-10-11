@@ -1,4 +1,5 @@
 import 'package:assessment_test/auth/login_account.dart';
+import 'package:assessment_test/bottom_nav.dart';
 import 'package:assessment_test/utils/components.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +11,9 @@ class CreateAccount extends StatelessWidget {
   final lastName = TextEditingController();
   final userName = TextEditingController();
   final address = TextEditingController();
+  final cPwd = TextEditingController();
   final mail = TextEditingController();
   final pwd = TextEditingController();
-  final cPwd = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +32,7 @@ class CreateAccount extends StatelessWidget {
               Text.rich(
                 TextSpan(
                   children: [
-                    TextSpan(
+                    const TextSpan(
                       text: 'Have an account?',
                       style: TextStyle(
                         color: Color(0xFF434343),
@@ -40,7 +41,7 @@ class CreateAccount extends StatelessWidget {
                         height: 0.10,
                       ),
                     ),
-                    TextSpan(
+                    const TextSpan(
                       text: ' ',
                       style: TextStyle(
                         color: Color(0xFF2676FC),
@@ -51,11 +52,9 @@ class CreateAccount extends StatelessWidget {
                     ),
                     TextSpan(
                       recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          Get.to(() => LoginAccount());
-                        },
+                        ..onTap = () => Get.to(() => LoginAccount()),
                       text: 'Login',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(0xFF2676FC),
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
@@ -104,7 +103,9 @@ class CreateAccount extends StatelessWidget {
               SizedBox(height: 18),
               AppButton(
                 title: 'Create Account',
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(BottomNav());
+                },
               )
             ],
           ),

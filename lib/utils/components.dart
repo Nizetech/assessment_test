@@ -4,19 +4,25 @@ import 'package:flutter/material.dart';
 class AppTextField extends StatelessWidget {
   final String hintText;
   final String title;
+  final bool isPrefix;
+  final bool isTitle;
   final TextEditingController controller;
   const AppTextField({
     super.key,
+    this.isPrefix = false,
+    this.isTitle = true,
     required this.hintText,
     required this.controller,
-    required this.title,
+    this.title = '',
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
+
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        
         Text(
           title,
           style: TextStyle(
@@ -27,6 +33,7 @@ class AppTextField extends StatelessWidget {
           ),
         ),
         SizedBox(height: 10),
+            
         TextField(
           controller: controller,
           decoration: InputDecoration(
@@ -40,6 +47,7 @@ class AppTextField extends StatelessWidget {
               borderSide: BorderSide(color: Colors.grey),
             ),
             hintText: hintText,
+        
             hintStyle: TextStyle(
               color: Color(0xFF434343),
               fontSize: 15,

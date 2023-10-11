@@ -28,7 +28,7 @@ class LoginAccount extends StatelessWidget {
               Text.rich(
                 TextSpan(
                   children: [
-                    TextSpan(
+                    const TextSpan(
                       text: 'Don\'t Have an account?',
                       style: TextStyle(
                         color: Color(0xFF434343),
@@ -37,7 +37,7 @@ class LoginAccount extends StatelessWidget {
                         height: 0.10,
                       ),
                     ),
-                    TextSpan(
+                    const TextSpan(
                       text: ' ',
                       style: TextStyle(
                         color: Color(0xFF2676FC),
@@ -48,11 +48,9 @@ class LoginAccount extends StatelessWidget {
                     ),
                     TextSpan(
                       recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          Get.to(() => CreateAccount());
-                        },
+                        ..onTap = () => Get.to(() => CreateAccount()),
                       text: 'Create Account',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(0xFF2676FC),
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
@@ -62,13 +60,13 @@ class LoginAccount extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 41),
+              const SizedBox(height: 41),
               AppTextField(
                 controller: email,
                 hintText: 'example@gmail.com',
                 title: 'Email Address',
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               AppTextField(
                 controller: pwd,
                 hintText: 'password must be at least 6 characters long',

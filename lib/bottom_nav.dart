@@ -1,3 +1,4 @@
+import 'package:assessment_test/chat_list.dart';
 import 'package:assessment_test/home_screen.dart';
 import 'package:assessment_test/theme/colors.dart';
 import 'package:flutter/material.dart';
@@ -28,33 +29,33 @@ class _BottomNavState extends State<BottomNav> {
           title: "Home",
           activeColorPrimary: mainColor,
           activeColorSecondary: Colors.white,
-          inactiveColorPrimary: Colors.grey,
+          inactiveColorPrimary: grey,
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.mail),
           title: "Chat",
           activeColorPrimary: mainColor,
           activeColorSecondary: Colors.white,
-          inactiveColorPrimary: Colors.grey,
+          inactiveColorPrimary: grey,
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(IconlyBold.location),
           title: "Location",
           activeColorPrimary: mainColor,
           activeColorSecondary: Colors.white,
-          inactiveColorPrimary: Colors.grey,
+          inactiveColorPrimary: grey,
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(IconlyBold.profile),
           title: "Profile",
           activeColorPrimary: mainColor,
           activeColorSecondary: Colors.white,
-          inactiveColorPrimary: Colors.grey,
+          inactiveColorPrimary: grey,
         ),
       ];
   List<Widget> buildScreens = [
     HomeScreen(),
-    HomeScreen(),
+    ChatScreen(),
     HomeScreen(),
     HomeScreen(),
   ];
@@ -67,9 +68,10 @@ class _BottomNavState extends State<BottomNav> {
         screens: buildScreens,
         items: _navBarsItems(),
         resizeToAvoidBottomInset: true,
-        navBarHeight: MediaQuery.of(context).viewInsets.bottom > 0
-            ? 0.0
-            : kBottomNavigationBarHeight,
+        navBarHeight: 70,
+        //  MediaQuery.of(context).viewInsets.bottom > 0
+        //     ? 0.0
+        //     : kBottomNavigationBarHeight,
         bottomScreenMargin: 0,
         backgroundColor: Colors.white,
         hideNavigationBar: _hideNavBar,
