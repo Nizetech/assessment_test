@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:assessment_test/constant/api_constant.dart';
+import 'package:assessment_test/utils/network_interceptors%20copy.dart';
 import 'package:assessment_test/utils/network_interceptors.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
@@ -32,9 +33,9 @@ class NetworkClient {
       ),
     );
 
-    // dio.interceptors.addAll({
-    //   AppInterceptors(dio),
-    // });
+    dio.interceptors.addAll({
+      AppInterceptors(dio),
+    });
     return dio;
   }
 

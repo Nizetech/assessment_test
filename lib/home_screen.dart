@@ -1,11 +1,13 @@
 import 'dart:developer';
 
+import 'package:assessment_test/auth/login_account.dart';
+import 'package:assessment_test/constant/api_constant.dart';
 import 'package:assessment_test/theme/colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:iconly/iconly.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,6 +19,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   CarouselController controller = CarouselController();
   int currentIndex = 0;
+  Box box = Hive.box(kAppName);
 
   List tabs = [
     'All',
@@ -85,7 +88,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              box.delete('token');
+                              Get.to(LoginAccount());
+                            },
                           ),
                         ],
                       ),
