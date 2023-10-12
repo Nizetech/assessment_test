@@ -89,7 +89,7 @@ class ChatField extends StatelessWidget {
       children: [
         TextFormField(
           minLines: 1,
-          maxLines: 3,
+       
           controller: controller,
           onTapOutside: (event) => FocusScope.of(context).unfocus(),
           decoration: InputDecoration(
@@ -166,21 +166,20 @@ class AppButton extends StatelessWidget {
 class Bubble extends StatelessWidget {
   final Map data;
   const Bubble({super.key, required this.data});
-
   String convertTime(String date) {
     return DateTime.parse(date).toString().substring(11, 16);
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment:       
-          Alignment.bottomRight,
+      alignment:
+          (data['isMe'] != null) ? Alignment.bottomRight : Alignment.bottomLeft,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-         
+          if ((data['isMe'] != null))
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -192,7 +191,7 @@ class Bubble extends StatelessWidget {
                 SizedBox(height: 4),
                 Text(
                 convertTime(data['datetime']),
-                style: const TextStyle(
+                  style: TextStyle(
                     color: Color(0xFF7D7F88),
                     fontSize: 13,
                     fontWeight: FontWeight.w400,
@@ -200,11 +199,12 @@ class Bubble extends StatelessWidget {
                 ),
               ],
             ),
-          SizedBox(width: 8),
+          if ((data['isMe'] != null)) SizedBox(width: 8),
           Flex(
             direction: Axis.horizontal,
-            mainAxisAlignment: MainAxisAlignment.end,
-               
+            mainAxisAlignment: (data['isMe'] != null)
+                ? MainAxisAlignment.end
+                : MainAxisAlignment.start,
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(
@@ -215,19 +215,23 @@ class Bubble extends StatelessWidget {
                   maxWidth: MediaQuery.of(context).size.width * 0.6,
                   minWidth: 100,
                 ),
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(0),
+                    bottomLeft:
+                        Radius.circular((data['isMe'] != null) ? 10 : 0),
+                    bottomRight:
+                        Radius.circular((data['isMe'] != null) ? 0 : 10),
                   ),
-                  color: mainColor,
+                  color: (data['isMe'] != null) ? mainColor : Color(0xFFF4F4F4),
                 ),
                 child: Text(
                   data['message'],
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: (data['isMe'] != null)
+                        ? Colors.white
+                        : Color(0xFF434343),
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                   ),
@@ -235,7 +239,16 @@ class Bubble extends StatelessWidget {
               ),
             ],
           ),
-        
+          SizedBox(width: 8),
+          if (!(data['isMe'] != null))
+            Text(
+              convertTime(data['datetime']),
+              style: TextStyle(
+                color: Color(0xFF7D7F88),
+                fontSize: 13,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
         ],
       ),
     );

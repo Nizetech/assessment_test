@@ -8,12 +8,10 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:web_socket_channel/io.dart';
 
 class ChatProvider extends ChangeNotifier {
-
   ChatProvider() {
     init();
   }
 
-  
   late IOWebSocketChannel channel;
   final controller = TextEditingController();
   List<Map> messages = [];
@@ -51,9 +49,14 @@ class ChatProvider extends ChangeNotifier {
       'message': message,
     }));
     controller.clear();
+    addMessage({
+      'message': message,
+      'datetime': DateTime.now().toString(),
+      'isMe': true,
+    });
   }
 
-@override
+  @override
   void dispose() {
     channel.sink.close();
     controller.dispose();

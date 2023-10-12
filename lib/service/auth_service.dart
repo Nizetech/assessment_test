@@ -25,6 +25,7 @@ class AuthService {
     required String password2,
     required String email,
     required String userName,
+    required BuildContext context,
   }) async {
     try {
       ProgressHelper().showLoader('Please wait...');
@@ -41,7 +42,8 @@ class AuthService {
       Get.to(LoginAccount());
       return true;
     } catch (e) {
-      ProgressHelper.hideLoader();
+      // ProgressHelper.hideLoader();
+      Navigator.pop(context);
       log(e.toString());
       ErrorToast(message: e.toString());
 
