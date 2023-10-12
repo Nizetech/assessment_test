@@ -28,7 +28,6 @@ class ChatScreen extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
-     
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 30),
@@ -65,7 +64,7 @@ class ChatScreen extends StatelessWidget {
               child: InkWell(
                 borderRadius: BorderRadius.circular(10),
                 onTap: () => Get.to(ChatDm()),
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.all(10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -117,7 +116,6 @@ class ChatScreen extends StatelessWidget {
                 ),
               ),
             ),
-          
           ],
         ),
       ),

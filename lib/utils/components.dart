@@ -36,8 +36,10 @@ class AppTextField extends StatelessWidget {
         SizedBox(height: 10),
         TextFormField(
           controller: controller,
+          onTapOutside: (event) => FocusScope.of(context).unfocus(),
           validator: validator,
           decoration: InputDecoration(
+            isDense: true,
             contentPadding: EdgeInsets.all(10),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),
@@ -59,7 +61,58 @@ class AppTextField extends StatelessWidget {
               borderRadius: BorderRadius.circular(5),
               borderSide: BorderSide(color: Colors.red),
             ),
-            
+            hintText: hintText,
+            hintStyle: TextStyle(
+              color: Color(0xFF434343),
+              fontSize: 15,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class ChatField extends StatelessWidget {
+  final String hintText;
+  final TextEditingController controller;
+  const ChatField({
+    super.key,
+    required this.hintText,
+    required this.controller,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextFormField(
+          controller: controller,
+          onTapOutside: (event) => FocusScope.of(context).unfocus(),
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+              borderSide: BorderSide.none,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+              borderSide: BorderSide(color: Colors.grey),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+              borderSide: BorderSide(color: Colors.grey),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+              borderSide: BorderSide(color: Colors.red),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+              borderSide: BorderSide(color: Colors.red),
+            ),
             hintText: hintText,
             hintStyle: TextStyle(
               color: Color(0xFF434343),

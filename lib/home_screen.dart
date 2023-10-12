@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:assessment_test/auth/login_account.dart';
 import 'package:assessment_test/constant/api_constant.dart';
+import 'package:assessment_test/provider/chat_provider.dart';
 import 'package:assessment_test/service/chat_service.dart';
 import 'package:assessment_test/theme/colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:iconly/iconly.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    ChatServiceImpl().init();
     super.initState();
   }
 
@@ -63,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Image.asset('assets/profile.png'),
                           ),
                           SizedBox(width: 12),
-                          const Column(
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
@@ -141,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       SizedBox(height: 35),
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
@@ -285,7 +286,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       TabBar(
                         isScrollable: true,
-                      
                         indicator: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.transparent,

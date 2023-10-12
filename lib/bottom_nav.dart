@@ -67,7 +67,7 @@ class _BottomNavState extends State<BottomNav> {
         controller: _controller,
         screens: buildScreens,
         items: _navBarsItems(),
-        resizeToAvoidBottomInset: true,
+        resizeToAvoidBottomInset: true, stateManagement: false,
         navBarHeight: 70,
         //  MediaQuery.of(context).viewInsets.bottom > 0
         //     ? 0.0
