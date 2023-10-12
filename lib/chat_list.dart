@@ -34,6 +34,7 @@ class ChatScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 30),
         child: Column(
           children: [
+            SizedBox(height: 20),
             TextField(
               controller: controller,
               decoration: InputDecoration(

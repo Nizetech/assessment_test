@@ -1,3 +1,4 @@
+import 'package:assessment_test/helper/toast.dart';
 import 'package:assessment_test/utils/app_logger.dart';
 import 'package:assessment_test/utils/exception.dart';
 import 'package:assessment_test/utils/failure.dart';
@@ -62,6 +63,7 @@ class AppInterceptors extends Interceptor {
     _log.e(err.requestOptions.headers, functionName: "onError[1]");
     _log.e(err.requestOptions.data, functionName: "onError[2]");
     _log.e(err.response?.data, functionName: "onError[3]");
+    ErrorToast(message: err.response?.data.toString() ?? "");
     _log.e(err.response?.statusCode, functionName: "onError[4]");
 
     switch (err.type) {

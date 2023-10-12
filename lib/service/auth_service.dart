@@ -43,7 +43,7 @@ class AuthService {
     } catch (e) {
       ProgressHelper.hideLoader();
       log(e.toString());
-      ErrorToast(message: e.toString());
+      // ErrorToast(message: e.toString());
 
       return false;
     }

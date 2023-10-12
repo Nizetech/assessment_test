@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:assessment_test/auth/create_account.dart';
+import 'package:assessment_test/auth/login_account.dart';
 import 'package:assessment_test/bottom_nav.dart';
 import 'package:assessment_test/constant/api_constant.dart';
 import 'package:flutter/material.dart';
@@ -19,16 +22,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    String token = box.get('token');
+    String? token = box.get('token');
+    if (token != null) {
+      log(token.toString());
+    }
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Test App',
       theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          elevation: 0,
+          backgroundColor: Colors.white,
+        ),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
+        useMaterial3: false,
         fontFamily: 'Urbanist',
       ),
-      home: token == '' ? CreateAccount() : BottomNav(),
+      home: token == null ? CreateAccount() : BottomNav(),
     );
   }
 }

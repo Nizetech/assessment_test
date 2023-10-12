@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:assessment_test/auth/login_account.dart';
 import 'package:assessment_test/constant/api_constant.dart';
+import 'package:assessment_test/service/chat_service.dart';
 import 'package:assessment_test/theme/colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,12 @@ class _HomeScreenState extends State<HomeScreen> {
   CarouselController controller = CarouselController();
   int currentIndex = 0;
   Box box = Hive.box(kAppName);
+
+  @override
+  void initState() {
+    ChatServiceImpl().init();
+    super.initState();
+  }
 
   List tabs = [
     'All',
@@ -278,8 +285,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       TabBar(
                         isScrollable: true,
-                        dividerColor: Colors.transparent,
-                        indicatorColor: Colors.transparent,
+                      
+                        indicator: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.transparent,
+                        ),
+                        labelColor: Color(0xFF434343),
+                        unselectedLabelColor: Color(0xFF949494),
                         labelStyle: TextStyle(
                           color: Color(0xFF434343),
                           fontSize: 14,
