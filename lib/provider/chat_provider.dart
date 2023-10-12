@@ -8,7 +8,14 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:web_socket_channel/io.dart';
 
 class ChatProvider extends ChangeNotifier {
+
+  ChatProvider() {
+    init();
+  }
+
+  
   late IOWebSocketChannel channel;
+  final controller = TextEditingController();
   List<Map> messages = [];
   Box box = Hive.box(kAppName);
 
@@ -43,21 +50,15 @@ class ChatProvider extends ChangeNotifier {
       'type': 'message',
       'message': message,
     }));
+    controller.clear();
   }
 
+@override
+  void dispose() {
+    channel.sink.close();
+    controller.dispose();
+    super.dispose();
+  }
   // create a stream to listen to the messages
   // Stream<List<Map>> get messageStream => Stream.fromIterable([messages]);
-}
-
-class ChatController extends GetxController {
-  late IOWebSocketChannel channel;
-  List<Map> messages = [];
-
-  void addMessage(Map message) {
-    messages.add(message);
-    update();
-  }
-
-  // create a stream to listen to the messages
-  Stream<List<Map>> get messageStream => Stream.fromIterable([messages]);
 }

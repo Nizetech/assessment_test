@@ -88,6 +88,7 @@ class LoginAccount extends StatelessWidget {
                       AuthService().login(
                         password: pwd.text,
                         userName: userName.text,
+                        context: context,
                       );
                     }
                     // Get.to(BottomNav());

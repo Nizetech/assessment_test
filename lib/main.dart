@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
     if (token != null) {
       log(token.toString());
     }
-    return Provider<ChatProvider>(
+    return ChangeNotifierProvider<ChatProvider>(
         create: (context) => ChatProvider(),
         builder: (context, child) {
           return GetMaterialApp(

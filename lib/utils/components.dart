@@ -1,6 +1,5 @@
 import 'package:assessment_test/theme/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class AppTextField extends StatelessWidget {
   final String hintText;
@@ -40,7 +39,7 @@ class AppTextField extends StatelessWidget {
           validator: validator,
           decoration: InputDecoration(
             isDense: true,
-            contentPadding: EdgeInsets.all(10),
+
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),
               borderSide: BorderSide.none,
@@ -89,6 +88,8 @@ class ChatField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextFormField(
+          minLines: 1,
+          maxLines: 3,
           controller: controller,
           onTapOutside: (event) => FocusScope.of(context).unfocus(),
           decoration: InputDecoration(
@@ -114,7 +115,7 @@ class ChatField extends StatelessWidget {
               borderSide: BorderSide(color: Colors.red),
             ),
             hintText: hintText,
-            hintStyle: TextStyle(
+            hintStyle: const TextStyle(
               color: Color(0xFF434343),
               fontSize: 15,
               fontWeight: FontWeight.w400,
@@ -166,16 +167,20 @@ class Bubble extends StatelessWidget {
   final Map data;
   const Bubble({super.key, required this.data});
 
+  String convertTime(String date) {
+    return DateTime.parse(date).toString().substring(11, 16);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment:
-          data['isSender'] ? Alignment.bottomRight : Alignment.bottomLeft,
+      alignment:       
+          Alignment.bottomRight,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          if (data['isSender'])
+         
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -186,8 +191,8 @@ class Bubble extends StatelessWidget {
                 ),
                 SizedBox(height: 4),
                 Text(
-                  '14:24',
-                  style: TextStyle(
+                convertTime(data['datetime']),
+                style: const TextStyle(
                     color: Color(0xFF7D7F88),
                     fontSize: 13,
                     fontWeight: FontWeight.w400,
@@ -195,12 +200,11 @@ class Bubble extends StatelessWidget {
                 ),
               ],
             ),
-          if (data['isSender']) SizedBox(width: 8),
+          SizedBox(width: 8),
           Flex(
             direction: Axis.horizontal,
-            mainAxisAlignment: data['isSender']
-                ? MainAxisAlignment.end
-                : MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.end,
+               
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(
@@ -211,19 +215,19 @@ class Bubble extends StatelessWidget {
                   maxWidth: MediaQuery.of(context).size.width * 0.6,
                   minWidth: 100,
                 ),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
-                    bottomLeft: Radius.circular(data['isSender'] ? 10 : 0),
-                    bottomRight: Radius.circular(data['isSender'] ? 0 : 10),
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(0),
                   ),
-                  color: data['isSender'] ? mainColor : Color(0xFFF4F4F4),
+                  color: mainColor,
                 ),
                 child: Text(
-                  data['text'],
-                  style: TextStyle(
-                    color: data['isSender'] ? Colors.white : Color(0xFF434343),
+                  data['message'],
+                  style: const TextStyle(
+                    color: Colors.white,
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                   ),
@@ -231,16 +235,7 @@ class Bubble extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(width: 8),
-          if (!data['isSender'])
-            Text(
-              '14:24',
-              style: TextStyle(
-                color: Color(0xFF7D7F88),
-                fontSize: 13,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
+        
         ],
       ),
     );

@@ -1,15 +1,9 @@
-import 'dart:convert';
-import 'dart:developer';
 
-import 'package:assessment_test/constant/api_constant.dart';
 import 'package:assessment_test/provider/chat_provider.dart';
-import 'package:assessment_test/service/chat_service.dart';
 import 'package:assessment_test/utils/components.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
-import 'package:web_socket_channel/io.dart';
 
 class ChatDm extends StatefulWidget {
   const ChatDm({super.key});
@@ -19,8 +13,7 @@ class ChatDm extends StatefulWidget {
 }
 
 class _ChatDmState extends State<ChatDm> {
-  final controller = TextEditingController();
-
+  late ChatProvider chatProvider;
   List<Map> messages = [];
 
   @override
@@ -29,11 +22,15 @@ class _ChatDmState extends State<ChatDm> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    ChatProvider chatProvider = Provider.of<ChatProvider>(context);
-    chatProvider.init();
+  void didChangeDependencies() {
+    chatProvider = Provider.of<ChatProvider>(context);
+    messages = chatProvider.messages;
+    super.didChangeDependencies();
+  }
 
-    print(chatProvider.messages);
+  @override
+  Widget build(BuildContext context) {
+    print(messages.length);
     return Scaffold(
       body: Scaffold(
         appBar: AppBar(
@@ -47,7 +44,7 @@ class _ChatDmState extends State<ChatDm> {
             ),
           ),
           centerTitle: true,
-          title: Text(
+          title: const Text(
             'Assessment Test',
             style: TextStyle(
               color: Color(0xFF434343),
@@ -55,7 +52,6 @@ class _ChatDmState extends State<ChatDm> {
               fontWeight: FontWeight.w500,
             ),
           ),
-          // elevation: 1,
           backgroundColor: Colors.white,
           actions: [
             Padding(
@@ -66,36 +62,17 @@ class _ChatDmState extends State<ChatDm> {
             )
           ],
         ),
-        body: Consumer<ChatProvider>(
-            // stream: context.read<ChatProvider>().channel.stream,
-            builder: (context, snapShot, widget) {
-          // if (snapShot.data == null) {
-          //   return Center(
-          //     child: Text('No messages Yet\n Type a message'),
-          //   );
-          // }
-          print(snapShot.messages);
-          //  jsonDecode(snapShot.data!);
-          // messages.add(message);
-          log('my Message =>$messages');
-          print(messages.runtimeType);
-
-          return ListView.separated(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-            shrinkWrap: true,
-            itemCount: messages.length,
-            separatorBuilder: (_, index) => SizedBox(height: 40),
-            itemBuilder: (_, index) {
-              return Text(
-                messages[index]['message'],
-              );
-              return Bubble(
-                data: {},
-                // messages[index],
-              );
-            },
-          );
-        }),
+        body: ListView.separated(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+          shrinkWrap: true,
+          itemCount: messages.length,
+          separatorBuilder: (_, index) => SizedBox(height: 40),
+          itemBuilder: (_, index) {
+            return Bubble(
+              data: messages[index],
+            );
+          },
+        ),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SizedBox(
@@ -120,21 +97,15 @@ class _ChatDmState extends State<ChatDm> {
                     offset: Offset(0, 7),
                     child: ChatField(
                       hintText: 'Type something',
-                      controller: controller,
+                      controller: chatProvider.controller,
                     ),
                   ),
                 ),
                 SizedBox(width: 13),
                 GestureDetector(
                   onTap: () {
-                    // channel.sink.add(jsonEncode(
-                    //   {
-                    //     'type': 'message',
-                    //     'message': controller.text,
-                    //   },
-                    // ));
-                    chatProvider.sendMessage(message: controller.text);
-                    controller.clear();
+                    chatProvider.sendMessage(
+                        message: chatProvider.controller.text);
                   },
                   child: Container(
                     height: 55,

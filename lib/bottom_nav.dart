@@ -67,24 +67,20 @@ class _BottomNavState extends State<BottomNav> {
         controller: _controller,
         screens: buildScreens,
         items: _navBarsItems(),
-        resizeToAvoidBottomInset: true, stateManagement: false,
+        resizeToAvoidBottomInset: true,
+     
         navBarHeight: 70,
-        //  MediaQuery.of(context).viewInsets.bottom > 0
-        //     ? 0.0
-        //     : kBottomNavigationBarHeight,
+
         bottomScreenMargin: 0,
         backgroundColor: Colors.white,
         hideNavigationBar: _hideNavBar,
         decoration: const NavBarDecoration(colorBehindNavBar: Colors.indigo),
-        itemAnimationProperties: const ItemAnimationProperties(
-          duration: Duration(milliseconds: 400),
-          curve: Curves.ease,
-        ),
+       
         screenTransitionAnimation: const ScreenTransitionAnimation(
           animateTabTransition: true,
         ),
         navBarStyle:
-            NavBarStyle.style7, // Choose the nav bar style with this property
+            NavBarStyle.style7, 
       ),
     );
   }

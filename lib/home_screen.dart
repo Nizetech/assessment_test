@@ -24,10 +24,6 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
   Box box = Hive.box(kAppName);
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   List tabs = [
     'All',
@@ -64,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Image.asset('assets/profile.png'),
                           ),
                           SizedBox(width: 12),
-                          Column(
+                          const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
@@ -142,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       SizedBox(height: 35),
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(

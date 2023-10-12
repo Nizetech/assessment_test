@@ -138,7 +138,7 @@ class CreateAccount extends StatelessWidget {
                     return null;
                   },
                 ),
-                SizedBox(height: 18),
+                SizedBox(height: MediaQuery.of(context).size.height * .13),
                 AppButton(
                   title: 'Create Account',
                   onPressed: () {
